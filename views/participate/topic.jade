@@ -1,0 +1,87 @@
+extends ../layout
+
+block content
+
+  h6
+    mark #{item.author}
+    | is talking with
+    p.highlight(style='padding-top:10px;background-color:rgba(239, 234, 227, 0.25);')
+      each account in item.recipients
+        span(style='padding:0px 5px 0px 5px;')
+          span.ion-social-twitter
+          span #{account.user}
+
+  hr
+
+  .page-header
+    h2.text-muted Let's talk about...
+    h3
+      i.ion-chatbox(style='padding-right:10px')
+      | #{item.headline}
+
+  .row
+    .col-sm-3
+      .panel-default(style='border: none')
+        .panel-body
+    .col-sm-6
+      .panel.panel-default(style='background-color:rgba(239, 234, 227, 0.5);')
+        .panel-body
+          if (item.message).indexOf('Samsung') > 0
+            img(src='https://pbs.twimg.com/profile_images/442066101896089600/bqKfqgt0_normal.jpeg')
+          else
+            img(src='https://pbs.twimg.com/profile_images/453904414219067392/4Vsolglp_normal.jpeg')
+          h4
+            i.ion-quote
+            | #{item.message}
+    .col-sm-3
+      .panel-default(style='border: none')
+        .panel-body
+
+  .row.hidden#firstReply
+    .col-sm-3
+      .panel-default(style='border: none')
+        .panel-body
+    .col-sm-6
+      .panel.panel-default(style='background-color:rgba(239, 234, 227, 0.1);')
+        .panel-body
+          img(src='https://d262ilb51hltx0.cloudfront.net/fit/c/32/32/0*isrXhi63pYyAExFY.png')
+          h5
+            p
+              i.ion-chatboxes
+              | I chose three of them, and we feel that any Note 4 owner will appreciate them. There are some nice surprises in there, along with some things that could be considered essential. Don't miss out on any of them.
+            p As great as the Galaxy Note 4 is out of the box, however, Samsung's flagship phablet is an Android device. What does this mean? It means there are hundreds of ways in which we can make it better!
+    .col-sm-3
+      .panel-default(style='border: none')
+        .panel-body
+
+  if (!user)
+    .col-sm-6.col-sm-offset-3(style='padding-top:65px;')
+      a.btn.btn-block.btn-twitter.btn-social(target='_blank', href='http://www.twitter.com/intent/tweet?text=Great conversation about "' + item.headline + '" with ' + item.author + '.\n' + " http://bazaarvoice.com/" + item.slug)
+        i.fa.fa-twitter
+        | Liking this conversation?
+        br
+        | Share it with friends!
+  else
+    form.form-horizontal(role='form', method='POST', style='padding-top:15px;')
+      input(type='hidden', name='_csrf', value=_csrf)
+      .form-group
+        label(class='col-sm-3 control-label', for='headline')
+        .col-sm-6
+          textarea.form-control(type='text', name='headline', id='headline', required='required', autocomplete='off', rows='2', placeholder='Type a reply here')
+      .form-group
+        .col-sm-offset-3.col-sm-8
+          button.btn.btn-default(type='submit')
+            span.ion-lightbulb
+            | Reply
+
+  script.
+    var o = document.getElementById('firstReply');
+    var msg = document.getElementsByClassName('alert-success');
+    var displayTimeout = 10 * 1000;
+
+    if (msg.length === 0) {
+      displayTimeout = 1;
+    }
+    setTimeout(function() {
+      o.className = "row fade in";
+    }, displayTimeout);

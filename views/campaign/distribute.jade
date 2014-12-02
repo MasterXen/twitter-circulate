@@ -1,0 +1,28 @@
+extends ../layout
+
+block content
+  .page-header
+    h3
+      i.fa.fa-users
+      | Start the Conversation
+
+  h4 What would you like to talk about?
+  h5
+
+  form.form-horizontal(role='form', method='POST', style='padding-top:15px;')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group
+      label(class='col-sm-2 control-label', for='headline') Headline
+      .col-sm-8
+        input.form-control(type='text', name='headline', id='headline', autofocus='true', required='required', autocomplete='off')
+        span.help-block For example: "Improving Samsung Galaxy tablets".
+    .form-group
+      label(class='col-sm-2 control-label', for='message') Topic
+      .col-sm-8
+        textarea.form-control(type='text', name='message', id='message', rows='2', required='required', autocomplete='off')
+        span.help-block For example: "What's the best experience you've had with a Samsung Galaxy Note 4?" or "What are three things car rental counters should be focused on to improve your experience and make travel easier?".
+    .form-group
+      .col-sm-offset-2.col-sm-8
+        button.btn.btn-success(type='submit')
+          span.ion-paper-airplane
+          | Send

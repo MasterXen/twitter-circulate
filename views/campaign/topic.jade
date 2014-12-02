@@ -1,0 +1,35 @@
+extends ../layout
+
+block content
+  .page-header
+    h3 Let's Get Started
+
+    if user
+      h6.text-right
+        em Or
+          a(href='') &nbsp;continue without topic customization&nbsp;
+          span using logged-in Twitter account:&nbsp;
+          mark #{user.profile.name}
+
+  h4 Find the most influential users for a&hellip;
+  form.form-horizontal(role='form', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group
+      label(class='col-sm-2 control-label', for='phrase') Phrase
+      .col-sm-8
+        input.form-control(type='text', name='phrase', id='phrase', autofocus=true, autocomplete='off')
+    .form-group
+      label(class='col-sm-2 control-label', for='hashtag') Hashtag
+      .col-sm-8
+        div.input-group-addon #
+        input.form-control(type='text', name='hashtag', id='hashtag', autocomplete='off')
+    .form-group
+      label(class='col-sm-2 control-label', for='account') Account
+      .col-sm-8
+        div.input-group-addon @
+        textarea.form-control(type='text', name='account', id='account', rows='4', autocomplete='off')
+    .form-group
+      .col-sm-offset-2.col-sm-8
+        button.btn.btn-primary(type='submit', data-loading-text='Analyzing...')
+          span.ion-funnel
+          | Analyze

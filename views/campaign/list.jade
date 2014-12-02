@@ -1,0 +1,47 @@
+extends ../layout
+
+block content
+  .page-header
+    h3
+      i.fa.fa-star
+      | Influential Accounts
+
+  h4
+    span Great! From the&nbsp;
+      mark #{accounts.length}
+      | &nbsp;top influencers, we've selected the&nbsp;
+      mark #{highestIndex} best
+      | &nbsp;accounts for your topic.
+
+  h4(style='padding-top:10px')
+    a(href='/campaign/distribute') Continue with recommended accounts &rarr;&nbsp;
+    | or refine accounts to ones that interest you.
+
+  hr(style='height:30px;')
+
+  .btn-group.btn-group-justified
+    a.btn.btn-success(href='')
+      i.fa.fa-smile-o
+      | Only include positive influencers
+    a.btn.btn-danger(href='')
+      i.fa.fa-frown-o
+      | Only include negative influencers
+
+  hr
+
+  div(style='height: 550px; overflow: auto;')
+    table.table.table-striped.table-bordered
+      thead
+        tr
+          th
+          th Twitter Account
+          th Influence
+      tbody
+        each influencer, index in accounts
+          tr
+            td
+              input(type='checkbox', checked=(index < highestIndex))
+            td
+              i.fa.fa-twitter
+              | #{influencer.user}
+            td= influencer.mentions
